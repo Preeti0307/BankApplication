@@ -1,33 +1,51 @@
 package com.preeti.bank.model;
 
+import java.util.Map;
+
 public class Account {
-	private int accNo;
+	private String accNo;
 	private double balance;
-	private String custName;
-	private Transactions transaction;
-	private  static int noOfAccounts = 0;
+	private Customer customer;
+	private Map<String, Transactions> transactions;
 	
-	public Account(String custName, double balance) {
-		this.custName = custName;
-		this.balance = balance;
-		noOfAccounts ++;
-        accNo = noOfAccounts;
+	public Account() {
+		
 	}
 
-	public int getAccountNum() {
+	public Account(String accNo, double balance, Customer customer, Map<String, Transactions> transactions) {
+		this.accNo = accNo;
+		this.balance = balance;
+		this.customer = customer;
+	}
+
+	public Account(String accNo, Customer customer, double balance) {
+		this.accNo = accNo;
+		this.customer = customer;
+		this.balance = balance;
+	}
+
+	public String getAccNo() {
 		return accNo;
 	}
-	
-	public void deposit(double amount, int accNo) {
-		
-	}
-	
-	public void withDraw(double amount, int accNo) {
-		
+
+	public void setAccNo(String accNo) {
+		this.accNo = accNo;
 	}
 
-	public void setCustName(String custName) {
-		this.custName = custName;
+	public double getBalance() {
+		return balance;
 	}
-	
+
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
 }

@@ -3,6 +3,7 @@ package com.preeti.bank.view;
 import java.util.Scanner;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import com.preeti.bank.model.Account;
@@ -12,7 +13,7 @@ public class BankAccount {
 
 	public static void main(String[] args) {
 		Bank bank = new Bank();
-	
+
 		char option = '\0';
 		Scanner sc = new Scanner(System.in);
 		Consumer<String> firstOption = createAccount -> System.out.println(createAccount);
@@ -42,7 +43,29 @@ public class BankAccount {
 				String custName = sc.next();
 				System.out.println("Initial deposit amount");
 				double initialAmount = sc.nextDouble();
-				System.out.println("Account created successfully with Account number: "+bank.addAccount(custName, initialAmount));
+				System.out.println("Email Id");
+				String emailId = sc.next();
+
+				Supplier<String> s = () -> {
+					String accNo = "";
+					for(int i=0; i<6; i++) {
+						accNo = accNo + (int)(Math.random()*10);
+					}
+					return accNo;
+				};
+
+				String accNo = s.get();
+				System.out.println("accNo: "+accNo);
+
+				Predicate<Account> p = a -> a !=null;
+				
+				Account acc = bank.getAccount(emailId);
+				if(p.test(acc)) {
+					System.out.println("User already exsits with Account number: "+acc.getAccNo());
+				} else {
+					bank.addAccount(accNo, custName, emailId, initialAmount);
+					System.out.println("Account created successfully with Account number: "+accNo);
+				}
 			}
 			}
 		} while (option>=7);
